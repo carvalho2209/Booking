@@ -1,5 +1,6 @@
 ﻿using Booking.Domain.Abstractions;
-using Booking.Domain.Apartments;
+using Booking.Domain.Bookings.Events;
+using Booking.Domain.Shared;
 
 namespace Booking.Domain.Bookings;
 
@@ -12,13 +13,10 @@ public sealed class Booking : Entity
         DateRange duration,
         Money priceForPeriod,
         Money cleaningFee,
+        Money amenitiesUpCharge,
         Money totalPrice,
         BookingStatus status,
-        DateTime createdOnUtc,
-        DateTime? confirmedOnUtc,
-        DateTime? rejectedOnUtc,
-        DateTime? completedOnUtc,
-        DateTime? cancelledOnUtc)
+        DateTime createdOnUtc)
         : base(id)
     {
         ApartmentId = apartmentId;
@@ -26,13 +24,10 @@ public sealed class Booking : Entity
         Duration = duration;
         PriceForPeriod = priceForPeriod;
         CleaningFee = cleaningFee;
+        AmenitiesUpCharge = amenitiesUpCharge;
         TotalPrice = totalPrice;
         Status = status;
         CreatedOnUtc = createdOnUtc;
-        ConfirmedOnUtc = confirmedOnUtc;
-        RejectedOnUtc = rejectedOnUtc;
-        CompletedOnUtc = completedOnUtc;
-        CancelledOnUtc = cancelledOnUtc;
     }
 
     public Guid ApartmentId { get; private set; }
@@ -40,6 +35,7 @@ public sealed class Booking : Entity
     public DateRange Duration { get; private set; }
     public Money PriceForPeriod { get; private set; }
     public Money CleaningFee { get; private set; }
+    public Money AmenitiesUpCharge { get; private set; }
     public Money TotalPrice { get; private set; }
     public BookingStatus Status { get; private set; }
     public DateTime CreatedOnUtc { get; private set; }
@@ -48,5 +44,27 @@ public sealed class Booking : Entity
     public DateTime? CompletedOnUtc { get; private set; }
     public DateTime? CancelledOnUtc { get; private set; }
 
+    public static Booking Reserve(
+        Guid apartmentId,
+        Guid userId,
+        DateRange duration,
+        DateTime utcNow,
+        PricingDetails pricingDetails)
+    {
+        var booking = new Booking(
+            Guid.NewGuid(),
+            apartmentId,
+            userId,
+            duration,
+            pricingDetails.PriceForPeriod,
+            pricingDetails.CleaningFee,
+            pricingDetails.AmenitiesUpCharge,
+            pricingDetails.TotalPrice,
+            BookingStatus.Reserved,
+            utcNow);
 
+        booking.RaiseDomainEvent(new BookingReservedDomainEvent(booking.Id));
+
+        return booking;
+    }
 }

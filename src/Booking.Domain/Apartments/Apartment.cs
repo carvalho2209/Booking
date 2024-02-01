@@ -1,4 +1,5 @@
 ﻿using Booking.Domain.Abstractions;
+using Booking.Domain.Shared;
 
 namespace Booking.Domain.Apartments;
 
