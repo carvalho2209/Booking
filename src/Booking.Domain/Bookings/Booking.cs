@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Booking.Domain.Abstractions;
+﻿using Booking.Domain.Abstractions;
 using Booking.Domain.Apartments;
 using Booking.Domain.Bookings.Events;
 using Booking.Domain.Shared;
@@ -76,9 +75,9 @@ public sealed class Booking : Entity
 
     public Result Confirm(DateTime utcNow)
     {
-        if (Status != BookingStatus.Rejected)
+        if (Status != BookingStatus.Reserved)
         {
-            return Result.Failure(BookingErrors.NotPending);
+            return Result.Failure(BookingErrors.NotReserved);
         }
 
         Status = BookingStatus.Confirmed;
@@ -93,7 +92,7 @@ public sealed class Booking : Entity
     {
         if (Status != BookingStatus.Reserved)
         {
-            return Result.Failure(BookingErrors.NotPending);
+            return Result.Failure(BookingErrors.NotReserved);
         }
 
         Status = BookingStatus.Rejected;
@@ -122,6 +121,21 @@ public sealed class Booking : Entity
         CancelledOnUtc = utcNow;
 
         RaiseDomainEvent(new BookingCancelledDomainEvent(Id));
+
+        return Result.Success();
+    }
+
+    public Result Complete(DateTime utcNow)
+    {
+        if (Status != BookingStatus.Completed)
+        {
+            return Result.Failure(BookingErrors.NotConfirmed);
+        }
+
+        Status = BookingStatus.Confirmed;
+        CompletedOnUtc = utcNow;
+
+        RaiseDomainEvent(new BookingCompletedDomainEvent(Id));
 
         return Result.Success();
     }
