@@ -1,7 +1,7 @@
-﻿using Booking.Domain.Abstractions;
-using Booking.Domain.Users.Events;
+﻿using Booky.Domain.Abstractions;
+using Booky.Domain.Users.Events;
 
-namespace Booking.Domain.Users;
+namespace Booky.Domain.Users;
 
 public sealed class User : Entity
 {

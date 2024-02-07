@@ -1,7 +1,7 @@
-﻿using Booking.Domain.Bookings;
+﻿using Booky.Domain.Bookings;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Booking.Application;
+namespace Booky.Application;
 
 public static class DependencyInjection
 {

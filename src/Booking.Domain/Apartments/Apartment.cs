@@ -1,7 +1,7 @@
-﻿using Booking.Domain.Abstractions;
-using Booking.Domain.Shared;
+﻿using Booky.Domain.Abstractions;
+using Booky.Domain.Shared;
 
-namespace Booking.Domain.Apartments;
+namespace Booky.Domain.Apartments;
 
 public sealed class Apartment : Entity
 {

@@ -1,6 +1,6 @@
-﻿using Booking.Domain.Abstractions;
+﻿using Booky.Domain.Abstractions;
 using MediatR;
 
-namespace Booking.Application.Abstractions.Messaging;
+namespace Booky.Application.Abstractions.Messaging;
 
 public interface IQuery<TResponse> : IRequest<Result<TResponse>>;

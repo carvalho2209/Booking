@@ -1,5 +1,5 @@
-﻿using Booking.Domain.Shared;
+﻿using Booky.Domain.Shared;
 
-namespace Booking.Domain.Bookings;
+namespace Booky.Domain.Bookings;
 
 public record PricingDetails(Money PriceForPeriod, Money CleaningFee, Money AmenitiesUpCharge, Money TotalPrice);

@@ -1,4 +1,4 @@
-﻿namespace Booking.Domain.Users;
+﻿namespace Booky.Domain.Users;
 
 public interface IUserRepository
 {

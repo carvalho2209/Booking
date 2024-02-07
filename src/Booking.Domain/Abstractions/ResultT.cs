@@ -1,4 +1,4 @@
-﻿namespace Booking.Domain.Abstractions;
+﻿namespace Booky.Domain.Abstractions;
 
 public class Result<TValue> : Result
 {

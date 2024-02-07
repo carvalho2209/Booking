@@ -1,3 +1,3 @@
-﻿namespace Booking.Domain.Users;
+﻿namespace Booky.Domain.Users;
 
 public record Email(string Value);

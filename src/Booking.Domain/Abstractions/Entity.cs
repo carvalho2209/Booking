@@ -1,4 +1,4 @@
-﻿namespace Booking.Domain.Abstractions;
+﻿namespace Booky.Domain.Abstractions;
 
 public abstract class Entity
 {

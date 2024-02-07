@@ -1,7 +1,7 @@
-﻿using Booking.Domain.Abstractions;
+﻿using Booky.Domain.Abstractions;
 using MediatR;
 
-namespace Booking.Application.Abstractions.Messaging;
+namespace Booky.Application.Abstractions.Messaging;
 
 public interface ICommandHandler<in TCommand> : IRequestHandler<TCommand, Result>
     where TCommand : ICommand;

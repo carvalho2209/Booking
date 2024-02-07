@@ -1,3 +1,3 @@
-﻿namespace Booking.Domain.Apartments;
+﻿namespace Booky.Domain.Apartments;
 
 public record Description(string Value);

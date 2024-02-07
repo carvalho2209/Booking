@@ -11,7 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Booking.Domain\Booking.Domain.csproj" />
+    <ProjectReference Include="..\Booking.Domain\Booky.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Abstractions\Clock\" />
+    <Folder Include="Bookings\ReserveBooking\" />
   </ItemGroup>
 
 </Project>

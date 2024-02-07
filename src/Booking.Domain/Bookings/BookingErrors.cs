@@ -1,6 +1,6 @@
-﻿using Booking.Domain.Abstractions;
+﻿using Booky.Domain.Abstractions;
 
-namespace Booking.Domain.Bookings;
+namespace Booky.Domain.Bookings;
 
 public static class BookingErrors
 {

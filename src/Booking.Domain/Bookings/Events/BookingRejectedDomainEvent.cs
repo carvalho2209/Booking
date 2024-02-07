@@ -1,5 +1,5 @@
-﻿using Booking.Domain.Abstractions;
+﻿using Booky.Domain.Abstractions;
 
-namespace Booking.Domain.Bookings.Events;
+namespace Booky.Domain.Bookings.Events;
 
 public record BookingRejectedDomainEvent(Guid Id) : IDomainEvent;

@@ -1,7 +1,7 @@
-﻿using Booking.Domain.Apartments;
-using Booking.Domain.Shared;
+﻿using Booky.Domain.Apartments;
+using Booky.Domain.Shared;
 
-namespace Booking.Domain.Bookings;
+namespace Booky.Domain.Bookings;
 
 public class PricingService
 {

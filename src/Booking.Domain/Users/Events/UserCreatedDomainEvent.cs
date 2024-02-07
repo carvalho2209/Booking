@@ -1,5 +1,5 @@
-﻿using Booking.Domain.Abstractions;
+﻿using Booky.Domain.Abstractions;
 
-namespace Booking.Domain.Users.Events;
+namespace Booky.Domain.Users.Events;
 
 public record UserCreatedDomainEvent(Guid Id) : IDomainEvent;
