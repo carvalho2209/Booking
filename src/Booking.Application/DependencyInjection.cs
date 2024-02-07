@@ -1,4 +1,5 @@
-﻿using Booky.Domain.Bookings;
+﻿using Booky.Application.Abstractions.Behaviors;
+using Booky.Domain.Bookings;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Booky.Application;
@@ -10,6 +11,7 @@ public static class DependencyInjection
         services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
+            configuration.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
 
         services.AddTransient<PricingService>();
