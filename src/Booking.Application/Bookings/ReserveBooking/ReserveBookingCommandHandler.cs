@@ -50,9 +50,9 @@ internal sealed class ReserveBookingCommandHandler : ICommandHandler<ReserveBook
 
         var duration = DateRange.Create(request.StartDate, request.EndDate);
 
-        if (await _bookingRepository.IsOverLappingAsync(apartment, duration, cancellationToken))
+        if (await _bookingRepository.IsOverlappingAsync(apartment, duration, cancellationToken))
         {
-            return Result.Failure<Guid>(BookingErrors.OverLap);
+            return Result.Failure<Guid>(BookingErrors.Overlap);
         }
 
         var booking = Booking.Reserve(

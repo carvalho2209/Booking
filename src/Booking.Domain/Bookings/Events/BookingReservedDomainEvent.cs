@@ -2,4 +2,4 @@
 
 namespace Booky.Domain.Bookings.Events;
 
-public record BookingReservedDomainEvent(Guid Id) : IDomainEvent;
+public sealed record BookingReservedDomainEvent(Guid BookingId) : IDomainEvent;
