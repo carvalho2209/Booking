@@ -19,6 +19,7 @@
   <ItemGroup>
     <Folder Include="Clock\" />
     <Folder Include="Email\" />
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>
