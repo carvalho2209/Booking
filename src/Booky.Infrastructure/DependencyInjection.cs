@@ -1,6 +1,11 @@
 ﻿using Booky.Application.Abstractions.Clock;
 using Booky.Application.Abstractions.Email;
+using Booky.Domain.Abstractions;
+using Booky.Domain.Apartments;
+using Booky.Domain.Bookings;
+using Booky.Domain.Users;
 using Booky.Infrastructure.Email;
+using Booky.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +29,12 @@ public static class DependencyInjection
         {
             options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
         });
+
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IApartmentRepository, ApartmentRepository>();
+        services.AddScoped<IBookingRepository, BookingRepository>();
+
+        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
         return services;
     }
