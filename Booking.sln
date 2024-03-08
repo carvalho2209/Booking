@@ -5,11 +5,13 @@ VisualStudioVersion = 17.9.34518.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7474FBD6-0ED4-4FE5-81CC-A6DFB3E9DD51}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booky.Domain", "src\Booking.Domain\Booky.Domain.csproj", "{82A002CE-26D0-4F03-8FA6-1A13EE50CA7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booky.Domain", "src\Booky.Domain\Booky.Domain.csproj", "{82A002CE-26D0-4F03-8FA6-1A13EE50CA7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booky.Application", "src\Booking.Application\Booky.Application.csproj", "{C449F163-E95B-4515-83E8-2D1B2EC59186}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booky.Application", "src\Booky.Application\Booky.Application.csproj", "{C449F163-E95B-4515-83E8-2D1B2EC59186}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booky.Infrastructure", "src\Booky.Infrastructure\Booky.Infrastructure.csproj", "{560B67C7-053F-46BE-8FF8-418208022365}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booky.Infrastructure", "src\Booky.Infrastructure\Booky.Infrastructure.csproj", "{560B67C7-053F-46BE-8FF8-418208022365}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booky.Api", "src\Booky.Api\Booky.Api.csproj", "{B9D14C06-CFE0-4AD2-8EC4-6423A2B50460}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{560B67C7-053F-46BE-8FF8-418208022365}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{560B67C7-053F-46BE-8FF8-418208022365}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{560B67C7-053F-46BE-8FF8-418208022365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9D14C06-CFE0-4AD2-8EC4-6423A2B50460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9D14C06-CFE0-4AD2-8EC4-6423A2B50460}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9D14C06-CFE0-4AD2-8EC4-6423A2B50460}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9D14C06-CFE0-4AD2-8EC4-6423A2B50460}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,6 +43,7 @@ Global
 		{82A002CE-26D0-4F03-8FA6-1A13EE50CA7B} = {7474FBD6-0ED4-4FE5-81CC-A6DFB3E9DD51}
 		{C449F163-E95B-4515-83E8-2D1B2EC59186} = {7474FBD6-0ED4-4FE5-81CC-A6DFB3E9DD51}
 		{560B67C7-053F-46BE-8FF8-418208022365} = {7474FBD6-0ED4-4FE5-81CC-A6DFB3E9DD51}
+		{B9D14C06-CFE0-4AD2-8EC4-6423A2B50460} = {7474FBD6-0ED4-4FE5-81CC-A6DFB3E9DD51}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7776870F-6A44-4B60-9714-775075FA5FF4}

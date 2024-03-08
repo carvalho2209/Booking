@@ -9,6 +9,5 @@ public class ReserveBookingCommandValidator : AbstractValidator<ReserveBookingCo
         RuleFor(x => x.UserId).NotEmpty();
         RuleFor(x => x.ApartmentId).NotEmpty();
         RuleFor(x => x.StartDate).LessThan(x => x.EndDate);
-
     }
 }

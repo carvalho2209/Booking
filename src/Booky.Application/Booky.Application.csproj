@@ -14,13 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Booking.Domain\Booky.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Abstractions\Clock\" />
     <Folder Include="Abstractions\Email\" />
     <Folder Include="Abstractions\Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Booky.Domain\Booky.Domain.csproj" />
   </ItemGroup>
 
 </Project>
