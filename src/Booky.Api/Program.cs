@@ -1,3 +1,4 @@
+using Booky.Api.Extensions;
 using Booky.Application;
 using Booky.Infrastructure;
 
@@ -17,6 +18,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    app.ApplyMigrations();
+    app.SeedData();
 }
 
 app.UseHttpsRedirection();
