@@ -20,10 +20,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 
     app.ApplyMigrations();
-    app.SeedData();
+    //app.SeedData();
 }
 
 app.UseHttpsRedirection();
+
+app.UseCustomExceptionHandler();
 
 app.MapControllers();
 

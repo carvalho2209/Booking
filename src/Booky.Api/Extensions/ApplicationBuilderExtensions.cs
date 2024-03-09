@@ -1,4 +1,5 @@
-﻿using Booky.Infrastructure;
+﻿using Booky.Api.Middleware;
+using Booky.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Booky.Api.Extensions;
@@ -16,6 +17,6 @@ public static class ApplicationBuilderExtensions
 
     public static void UseCustomExceptionHandler(this IApplicationBuilder app)
     {
-        //app.UseMiddleware<ExceptionHandlingMiddleware>();
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
     }
 }
