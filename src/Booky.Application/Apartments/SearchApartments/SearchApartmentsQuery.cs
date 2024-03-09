@@ -2,6 +2,6 @@
 
 namespace Booky.Application.Apartments.SearchApartments;
 
-public record SearchApartmentsQuery(
+public sealed record SearchApartmentsQuery(
     DateOnly StartDate,
     DateOnly EndDate) : IQuery<IReadOnlyList<ApartmentResponse>>;

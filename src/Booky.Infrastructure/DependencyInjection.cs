@@ -5,6 +5,7 @@ using Booky.Domain.Abstractions;
 using Booky.Domain.Apartments;
 using Booky.Domain.Bookings;
 using Booky.Domain.Users;
+using Booky.Infrastructure.Clock;
 using Booky.Infrastructure.Data;
 using Booky.Infrastructure.Email;
 using Booky.Infrastructure.Repositories;
@@ -21,7 +22,7 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddTransient<IDateTimeProvider, IDateTimeProvider>();
+        services.AddTransient<IDateTimeProvider, DateTimeProvider>();
         services.AddTransient<IEmailService, EmailService>();
 
         var connectionString =

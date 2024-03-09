@@ -6,11 +6,11 @@ namespace Booky.Api.Controllers.Apartments;
 
 [ApiController]
 [Route("api/apartments")]
-public class ApartmentController : ControllerBase
+public class ApartmentsController : ControllerBase
 {
     private readonly ISender _sender;
 
-    public ApartmentController(ISender sender) => _sender = sender;
+    public ApartmentsController(ISender sender) => _sender = sender;
 
     [HttpGet]
     public async Task<IActionResult> SearchApartments(
@@ -25,3 +25,4 @@ public class ApartmentController : ControllerBase
         return Ok(result.Value);
     }
 }
+

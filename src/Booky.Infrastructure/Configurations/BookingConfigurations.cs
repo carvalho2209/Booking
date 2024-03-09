@@ -13,40 +13,40 @@ public sealed class BookingConfigurations : IEntityTypeConfiguration<Booking>
     {
         builder.ToTable("bookings");
 
-        builder.HasKey(x => x.Id);
+        builder.HasKey(booking => booking.Id);
 
-        builder.OwnsOne(x => x.PriceForPeriod, priceBuilder =>
+        builder.OwnsOne(booking => booking.PriceForPeriod, priceBuilder =>
         {
             priceBuilder.Property(money => money.Currency)
                 .HasConversion(currency => currency.Code, code => Currency.FromCode(code));
         });
 
-        builder.OwnsOne(x => x.CleaningFee, priceBuilder =>
+        builder.OwnsOne(booking => booking.CleaningFee, priceBuilder =>
         {
             priceBuilder.Property(money => money.Currency)
                 .HasConversion(currency => currency.Code, code => Currency.FromCode(code));
         });
 
-        builder.OwnsOne(x => x.AmenitiesUpCharge, priceBuilder =>
+        builder.OwnsOne(booking => booking.AmenitiesUpCharge, priceBuilder =>
         {
             priceBuilder.Property(money => money.Currency)
                 .HasConversion(currency => currency.Code, code => Currency.FromCode(code));
         });
 
-        builder.OwnsOne(x => x.TotalPrice, priceBuilder =>
+        builder.OwnsOne(booking => booking.TotalPrice, priceBuilder =>
         {
             priceBuilder.Property(money => money.Currency)
                 .HasConversion(currency => currency.Code, code => Currency.FromCode(code));
         });
 
-        builder.OwnsOne(x => x.Duration);
+        builder.OwnsOne(booking => booking.Duration);
 
         builder.HasOne<Apartment>()
             .WithMany()
-            .HasForeignKey(x => x.ApartmentId);
+            .HasForeignKey(booking => booking.ApartmentId);
 
         builder.HasOne<User>()
             .WithMany()
-            .HasForeignKey(x => x.UserId);
+            .HasForeignKey(booking => booking.UserId);
     }
 }

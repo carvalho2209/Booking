@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  booky.api:
+    image: ${DOCKER_REGISTRY-}bookyapi
+    container_name: Booky.Api
+    build:
+      context: .
+      dockerfile: src/Booky.Api/Dockerfile
+    depends_on:
+      - booky-db
+
+  booky-db:
+    image: postgres:latest
+    container_name: Booky.db
+    environment:
+      - POSTGRES_DB=booky
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/database:/var/lib/posgresql/data
+    ports:
+      - 5432:5432

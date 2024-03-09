@@ -6,6 +6,8 @@ namespace Booky.Domain.Reviews;
 
 public sealed class Review : Entity
 {
+    private Review() { }
+
     private Review(
         Guid id,
         Guid apartmentId,
