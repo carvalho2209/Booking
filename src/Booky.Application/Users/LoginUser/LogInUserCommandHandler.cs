@@ -1,4 +1,5 @@
-﻿using Booky.Application.Abstractions.Messaging;
+﻿using Booky.Application.Abstractions.Authentication;
+using Booky.Application.Abstractions.Messaging;
 using Booky.Domain.Abstractions;
 using Booky.Domain.Users;
 

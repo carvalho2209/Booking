@@ -53,8 +53,7 @@ internal sealed class AuthenticationService : IAuthenticationService
             usersSegmentName,
             StringComparison.InvariantCultureIgnoreCase);
 
-        var userIdentityId = locationHeader.Substring(
-            userSegmentValueIndex + usersSegmentName.Length);
+        var userIdentityId = locationHeader.Substring(userSegmentValueIndex + usersSegmentName.Length);
 
         return userIdentityId;
     }
