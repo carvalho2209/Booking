@@ -3,7 +3,7 @@ using Booky.Application.Abstractions.Messaging;
 using Booky.Domain.Abstractions;
 using Booky.Domain.Users;
 
-namespace Booky.Application.Users;
+namespace Booky.Application.Users.RegisterUser;
 
 internal sealed class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand, Guid>
 {
@@ -12,7 +12,7 @@ internal sealed class RegisterUserCommandHandler : ICommandHandler<RegisterUserC
     private readonly IUnitOfWork _unitOfWork;
 
     public RegisterUserCommandHandler(
-        IAuthenticationService authenticationService, 
+        IAuthenticationService authenticationService,
         IUserRepository userRepository,
         IUnitOfWork unitOfWork)
     {

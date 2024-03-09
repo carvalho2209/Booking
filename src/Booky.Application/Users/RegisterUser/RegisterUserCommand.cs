@@ -1,6 +1,6 @@
 ﻿using Booky.Application.Abstractions.Messaging;
 
-namespace Booky.Application.Users;
+namespace Booky.Application.Users.RegisterUser;
 
 public sealed record RegisterUserCommand(
     string Email,
