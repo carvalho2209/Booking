@@ -7,11 +7,13 @@ using Booky.Domain.Apartments;
 using Booky.Domain.Bookings;
 using Booky.Domain.Users;
 using Booky.Infrastructure.Authentication;
+using Booky.Infrastructure.Authorization;
 using Booky.Infrastructure.Clock;
 using Booky.Infrastructure.Data;
 using Booky.Infrastructure.Email;
 using Booky.Infrastructure.Repositories;
 using Dapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +35,8 @@ public static class DependencyInjection
         AddPersistence(services, configuration);
 
         AddAuthentication(services, configuration);
+
+        AddAuthorization(services);
 
         return services;
     }
@@ -68,7 +72,7 @@ public static class DependencyInjection
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer();
 
-        services.Configure<AuthenticationOptions>(configuration.GetSection("Authentication"));
+        services.Configure<Authentication.AuthenticationOptions>(configuration.GetSection("Authentication"));
 
         services.ConfigureOptions<JwtBearerOptionsSetup>();
 
@@ -76,7 +80,7 @@ public static class DependencyInjection
 
         services.AddTransient<AdminAuthorizationDelegatingHandler>();
 
-        services.AddHttpClient<IAuthenticationService, AuthenticationService>((serviceProvider, httpClient) =>
+        services.AddHttpClient<Application.Abstractions.Authentication.IAuthenticationService, Authentication.AuthenticationService>((serviceProvider, httpClient) =>
             {
                 var keycloakOptions = serviceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
 
@@ -90,5 +94,15 @@ public static class DependencyInjection
 
             httpClient.BaseAddress = new Uri(keycloakOptions.TokenUrl);
         });
+
+        services.AddHttpContextAccessor();
+
+        services.AddScoped<IUserContext, UserContext>();
+    }
+
+    private static void AddAuthorization(IServiceCollection service)
+    {
+        service.AddScoped<AuthorizationService>();
+        service.AddTransient<IClaimsTransformation, CustomClaimsTransformation>();
     }
 }
