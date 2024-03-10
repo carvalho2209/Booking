@@ -1,6 +1,8 @@
-﻿using Booky.Application.Abstractions.Data;
+﻿using Booky.Application.Abstractions.Authentication;
+using Booky.Application.Abstractions.Data;
 using Booky.Application.Abstractions.Messaging;
 using Booky.Domain.Abstractions;
+using Booky.Domain.Bookings;
 using Dapper;
 
 namespace Booky.Application.Bookings.GetBooking;
@@ -8,8 +10,13 @@ namespace Booky.Application.Bookings.GetBooking;
 internal sealed class GetBookingQueryHandler : IQueryHandler<GetBookingQuery, BookingResponse>
 {
     private readonly ISqlConnectionFactory _connectionFactory;
+    private readonly IUserContext _userContext;
 
-    public GetBookingQueryHandler(ISqlConnectionFactory connectionFactory) => _connectionFactory = connectionFactory;
+    public GetBookingQueryHandler(ISqlConnectionFactory connectionFactory, IUserContext userContext)
+    {
+        _connectionFactory = connectionFactory;
+        _userContext = userContext;
+    }
 
     public async Task<Result<BookingResponse>> Handle(GetBookingQuery request, CancellationToken cancellationToken)
     {
@@ -41,6 +48,11 @@ internal sealed class GetBookingQueryHandler : IQueryHandler<GetBookingQuery, Bo
             {
                 request.BookingId
             });
+
+        if (booking is null || booking.UserId != _userContext.UserId)
+        {
+            return Result.Failure<BookingResponse>(BookingErrors.NotFound);
+        }
 
         return booking;
     }
