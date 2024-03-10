@@ -1,6 +1,7 @@
 ﻿using Booky.Application.Users.GetLoggedInUser;
 using Booky.Application.Users.LoginUser;
 using Booky.Application.Users.RegisterUser;
+using Booky.Infrastructure.Authorization;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ public class UsersController : ControllerBase
     public UsersController(ISender sender) => _sender = sender;
 
     [HttpGet("me")]
-    [Authorize(Roles = Roles.Registered)]
+    [HasPermission(Permissions.UsersRead)]
     public async Task<IActionResult> GetLoggedInUser(CancellationToken cancellationToken)
     {
         var query = new GetLoggedInUserQuery();
