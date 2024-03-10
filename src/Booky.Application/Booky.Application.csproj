@@ -17,6 +17,7 @@
     <Folder Include="Abstractions\Clock\" />
     <Folder Include="Abstractions\Email\" />
     <Folder Include="Abstractions\Data\" />
+    <Folder Include="Reviews\AddReview\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -26,4 +26,8 @@
     <ProjectReference Include="..\Booky.Infrastructure\Booky.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Reviews\" />
+  </ItemGroup>
+
 </Project>

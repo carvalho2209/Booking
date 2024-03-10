@@ -5,6 +5,7 @@ using Booky.Application.Abstractions.Email;
 using Booky.Domain.Abstractions;
 using Booky.Domain.Apartments;
 using Booky.Domain.Bookings;
+using Booky.Domain.Reviews;
 using Booky.Domain.Users;
 using Booky.Infrastructure.Authentication;
 using Booky.Infrastructure.Authorization;
@@ -57,6 +58,8 @@ public static class DependencyInjection
         services.AddScoped<IApartmentRepository, ApartmentRepository>();
 
         services.AddScoped<IBookingRepository, BookingRepository>();
+
+        services.AddScoped<IReviewRepository, ReviewRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
