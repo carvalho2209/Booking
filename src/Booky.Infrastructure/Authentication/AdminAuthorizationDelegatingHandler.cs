@@ -11,9 +11,7 @@ public sealed class AdminAuthorizationDelegatingHandler : DelegatingHandler
     private readonly KeycloakOptions _keycloakOptions;
 
     public AdminAuthorizationDelegatingHandler(IOptions<KeycloakOptions> keycloakOptions)
-    {
-        _keycloakOptions = keycloakOptions.Value;
-    }
+        => _keycloakOptions = keycloakOptions.Value;
 
     protected override async Task<HttpResponseMessage> SendAsync(
         HttpRequestMessage request,
