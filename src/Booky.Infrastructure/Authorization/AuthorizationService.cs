@@ -35,5 +35,4 @@ internal sealed class AuthorizationService
 
         return permissions.Select(p => p.Name).ToHashSet();
     }
-
 }

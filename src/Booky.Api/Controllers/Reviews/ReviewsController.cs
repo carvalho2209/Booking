@@ -12,10 +12,7 @@ public class ReviewsController : ControllerBase
 {
     private readonly ISender _sender;
 
-    public ReviewsController(ISender sender)
-    {
-        _sender = sender;
-    }
+    public ReviewsController(ISender sender) => _sender = sender;
 
     [HttpPost]
     public async Task<IActionResult> AddReview(AddReviewRequest request, CancellationToken cancellationToken)
