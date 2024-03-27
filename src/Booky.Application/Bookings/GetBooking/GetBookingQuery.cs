@@ -1,5 +1,10 @@
-﻿using Booky.Application.Abstractions.Messaging;
+﻿using Booky.Application.Caching;
 
 namespace Booky.Application.Bookings.GetBooking;
 
-public record GetBookingQuery(Guid BookingId) : IQuery<BookingResponse>;
+public sealed record GetBookingQuery(Guid BookingId) : ICacheQuery<BookingResponse>
+{
+    public string CacheKey => $"bookings-{BookingId}";
+
+    public TimeSpan? Expiration => null;
+}

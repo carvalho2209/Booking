@@ -2,6 +2,7 @@
 using Booky.Application.Abstractions.Clock;
 using Booky.Application.Abstractions.Data;
 using Booky.Application.Abstractions.Email;
+using Booky.Application.Caching;
 using Booky.Domain.Abstractions;
 using Booky.Domain.Apartments;
 using Booky.Domain.Bookings;
@@ -9,6 +10,7 @@ using Booky.Domain.Reviews;
 using Booky.Domain.Users;
 using Booky.Infrastructure.Authentication;
 using Booky.Infrastructure.Authorization;
+using Booky.Infrastructure.Caching;
 using Booky.Infrastructure.Clock;
 using Booky.Infrastructure.Data;
 using Booky.Infrastructure.Email;
@@ -21,6 +23,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using StackExchange.Redis;
 
 namespace Booky.Infrastructure;
 
@@ -39,6 +42,8 @@ public static class DependencyInjection
         AddAuthentication(services, configuration);
 
         AddAuthorization(services);
+
+        AddCaching(services, configuration);
 
         return services;
     }
@@ -114,4 +119,14 @@ public static class DependencyInjection
 
         services.AddTransient<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
     }
+
+    private static void AddCaching(IServiceCollection services, IConfiguration configuration)
+    {
+        var connectionString = configuration.GetConnectionString("Cache") ??
+                         throw new ArgumentNullException(nameof(configuration));
+
+        services.AddStackExchangeRedisCache(options => options.Configuration = connectionString);
+
+        services.AddSingleton<ICacheService, CacheService>();
+    }   
 }

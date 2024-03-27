@@ -1,9 +1,12 @@
-﻿namespace Booky.Domain.Users;
+﻿using System.Text.Json.Serialization;
+
+namespace Booky.Domain.Users;
 
 public sealed class Role
 {
     public static readonly Role Registered = new(1, "Registered");
 
+    [JsonConstructor]
     private Role(int id, string name)
     {
         Id = id;
