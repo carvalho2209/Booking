@@ -19,9 +19,7 @@ internal sealed class SearchApartmentsQueryHandler
     private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
     public SearchApartmentsQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
-    {
-        _sqlConnectionFactory = sqlConnectionFactory;
-    }
+        => _sqlConnectionFactory = sqlConnectionFactory;
 
     public async Task<Result<IReadOnlyList<ApartmentResponse>>> Handle(
         SearchApartmentsQuery request,

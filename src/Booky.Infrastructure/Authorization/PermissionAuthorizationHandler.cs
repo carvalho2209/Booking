@@ -9,9 +9,7 @@ internal sealed class PermissionAuthorizationHandler : AuthorizationHandler<Perm
     private readonly IServiceProvider _serviceProvider;
 
     public PermissionAuthorizationHandler(IServiceProvider serviceProvider)
-    {
-        _serviceProvider = serviceProvider;
-    }
+        => _serviceProvider = serviceProvider;
 
     protected override async Task HandleRequirementAsync(
         AuthorizationHandlerContext context,

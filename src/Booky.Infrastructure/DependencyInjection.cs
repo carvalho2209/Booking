@@ -23,7 +23,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using StackExchange.Redis;
 
 namespace Booky.Infrastructure;
 
@@ -44,6 +43,8 @@ public static class DependencyInjection
         AddAuthorization(services);
 
         AddCaching(services, configuration);
+
+        AddHealthChecks(services, configuration);
 
         return services;
     }
@@ -128,5 +129,13 @@ public static class DependencyInjection
         services.AddStackExchangeRedisCache(options => options.Configuration = connectionString);
 
         services.AddSingleton<ICacheService, CacheService>();
-    }   
+    }
+
+    private static void AddHealthChecks(IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddHealthChecks()
+            .AddNpgSql(configuration.GetConnectionString("Database")!)
+            .AddRedis(configuration.GetConnectionString("Cache")!)
+            .AddUrlGroup(new Uri(configuration["keyCloak:BaseUrl"]!), HttpMethod.Get, "keycloak");
+    }
 }
