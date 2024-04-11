@@ -1,4 +1,5 @@
-﻿using Booky.Application.Abstractions.Authentication;
+﻿using Asp.Versioning;
+using Booky.Application.Abstractions.Authentication;
 using Booky.Application.Abstractions.Clock;
 using Booky.Application.Abstractions.Data;
 using Booky.Application.Abstractions.Email;
@@ -45,6 +46,8 @@ public static class DependencyInjection
         AddCaching(services, configuration);
 
         AddHealthChecks(services, configuration);
+
+        //AddApiVersioning(services);
 
         return services;
     }
@@ -137,5 +140,22 @@ public static class DependencyInjection
             .AddNpgSql(configuration.GetConnectionString("Database")!)
             .AddRedis(configuration.GetConnectionString("Cache")!)
             .AddUrlGroup(new Uri(configuration["keyCloak:BaseUrl"]!), HttpMethod.Get, "keycloak");
+    }
+
+    private static void AddApiVersioning(IServiceCollection services)
+    {
+        services
+            .AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(1,2);
+                options.ReportApiVersions = true;
+                options.ApiVersionReader = new UrlSegmentApiVersionReader();
+            })
+            .AddMvc()
+            .AddApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'V";
+                options.SubstituteApiVersionInUrl = true;
+            });
     }
 }
