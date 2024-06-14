@@ -10,15 +10,15 @@ public sealed class OutboxMessage
         Type = type;
     }
 
-    public Guid Id { get; init; }
+    public Guid Id { get; private set; }
 
-    public DateTime OccurredOnUtc { get; init; }
+    public DateTime OccurredOnUtc { get; private set; }
 
-    public string Type { get; init; }
+    public string Type { get; private set; }
 
-    public string Content { get; init; }
+    public string Content { get; private set; }
 
-    public DateTime? ProcessedOnUtc { get; init; }
+    public DateTime? ProcessedOnUtc { get; private set; }
 
-    public string? Error { get; init; }
+    public string? Error { get; private set; }
 }
