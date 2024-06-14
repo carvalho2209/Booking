@@ -1,20 +1,21 @@
-﻿using Booky.Application.Exceptions;
+﻿using Booky.Application.Abstractions.Clock;
+using Booky.Application.Exceptions;
 using Booky.Domain.Abstractions;
-using MediatR;
+using Booky.Infrastructure.Outbox;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Booky.Infrastructure;
 
-public sealed class ApplicationDbContext : DbContext, IUnitOfWork
+public sealed class ApplicationDbContext(
+    DbContextOptions options,
+    IDateTimeProvider dateTimeProvider)
+    : DbContext(options), IUnitOfWork
 {
-    private readonly IPublisher _publisher;
-
-    /// <inheritdoc />
-    public ApplicationDbContext(DbContextOptions options, IPublisher publisher)
-        : base(options)
+    private static readonly JsonSerializerSettings JsonSerializerSettings = new()
     {
-        _publisher = publisher;
-    }
+        TypeNameHandling = TypeNameHandling.All
+    };
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -23,13 +24,13 @@ public sealed class ApplicationDbContext : DbContext, IUnitOfWork
         base.OnModelCreating(modelBuilder);
     }
 
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         try
         {
-            var result = await base.SaveChangesAsync(cancellationToken);
+            AddDomainEventsAsOutboxMessages();
 
-            await PublishDomainEventsAsync();
+            var result = await base.SaveChangesAsync(cancellationToken);
 
             return result;
         }
@@ -39,9 +40,9 @@ public sealed class ApplicationDbContext : DbContext, IUnitOfWork
         }
     }
 
-    private async Task PublishDomainEventsAsync()
+    private void AddDomainEventsAsOutboxMessages()
     {
-        var domainEvents = ChangeTracker
+        var outboxMessages = ChangeTracker
             .Entries<Entity>()
             .Select(entry => entry.Entity)
             .SelectMany(entity =>
@@ -52,11 +53,13 @@ public sealed class ApplicationDbContext : DbContext, IUnitOfWork
 
                 return domainEvents;
             })
+            .Select(domainEvent => new OutboxMessage(
+                Guid.NewGuid(),
+                dateTimeProvider.UtcNow,
+                domainEvent.GetType().Name,
+                JsonConvert.SerializeObject(domainEvent, JsonSerializerSettings)))
             .ToList();
 
-        foreach (var domainEvent in domainEvents)
-        {
-            await _publisher.Publish(domainEvent);
-        }
+        AddRange(outboxMessages);
     }
 }

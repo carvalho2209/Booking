@@ -3,11 +3,10 @@ using Microsoft.Extensions.Options;
 
 namespace Booky.Infrastructure.Authentication;
 
-internal sealed class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
+internal sealed class JwtBearerOptionsSetup(IOptions<AuthenticationOptions> options)
+    : IConfigureNamedOptions<JwtBearerOptions>
 {
-    private readonly AuthenticationOptions _authenticationOptions;
-
-    public JwtBearerOptionsSetup(IOptions<AuthenticationOptions> options) => _authenticationOptions = options.Value;
+    private readonly AuthenticationOptions _authenticationOptions = options.Value;
 
     public void Configure(JwtBearerOptions options)
     {

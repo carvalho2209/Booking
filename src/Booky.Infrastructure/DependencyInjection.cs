@@ -15,6 +15,7 @@ using Booky.Infrastructure.Caching;
 using Booky.Infrastructure.Clock;
 using Booky.Infrastructure.Data;
 using Booky.Infrastructure.Email;
+using Booky.Infrastructure.Outbox;
 using Booky.Infrastructure.Repositories;
 using Dapper;
 using Microsoft.AspNetCore.Authentication;
@@ -24,6 +25,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Quartz;
+using AuthenticationOptions = Booky.Infrastructure.Authentication.AuthenticationOptions;
+using AuthenticationService = Booky.Infrastructure.Authentication.AuthenticationService;
+using IAuthenticationService = Booky.Application.Abstractions.Authentication.IAuthenticationService;
 
 namespace Booky.Infrastructure;
 
@@ -47,7 +52,9 @@ public static class DependencyInjection
 
         AddHealthChecks(services, configuration);
 
-        //AddApiVersioning(services);
+        AddApiVersioning(services);
+
+        AddBackgroundJobs(services, configuration);
 
         return services;
     }
@@ -85,7 +92,7 @@ public static class DependencyInjection
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer();
 
-        services.Configure<Authentication.AuthenticationOptions>(configuration.GetSection("Authentication"));
+        services.Configure<AuthenticationOptions>(configuration.GetSection("Authentication"));
 
         services.ConfigureOptions<JwtBearerOptionsSetup>();
 
@@ -93,7 +100,7 @@ public static class DependencyInjection
 
         services.AddTransient<AdminAuthorizationDelegatingHandler>();
 
-        services.AddHttpClient<Application.Abstractions.Authentication.IAuthenticationService, Authentication.AuthenticationService>((serviceProvider, httpClient) =>
+        services.AddHttpClient<IAuthenticationService, AuthenticationService>((serviceProvider, httpClient) =>
             {
                 var keycloakOptions = serviceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
 
@@ -147,7 +154,7 @@ public static class DependencyInjection
         services
             .AddApiVersioning(options =>
             {
-                options.DefaultApiVersion = new ApiVersion(1,2);
+                options.DefaultApiVersion = new ApiVersion(1);
                 options.ReportApiVersions = true;
                 options.ApiVersionReader = new UrlSegmentApiVersionReader();
             })
@@ -157,5 +164,16 @@ public static class DependencyInjection
                 options.GroupNameFormat = "'v'V";
                 options.SubstituteApiVersionInUrl = true;
             });
+    }
+
+    private static void AddBackgroundJobs(IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<OutboxOptions>(configuration.GetSection("Outbox"));
+
+        services.AddQuartz();
+
+        services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
+
+        services.ConfigureOptions<ProcessOutboxMessagesJobSetup>();
     }
 }
