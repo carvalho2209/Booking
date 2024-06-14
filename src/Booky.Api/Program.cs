@@ -65,7 +65,9 @@ ApiVersionSet apiVersionSet = app.NewApiVersionSet()
     .ReportApiVersions()
     .Build();
 
-var routeGroupBuilder = app.MapGroup("api/v{version:apiVersion}").WithApiVersionSet(apiVersionSet);
+var routeGroupBuilder = app
+    .MapGroup("api/v{version:apiVersion}")
+    .WithApiVersionSet(apiVersionSet);
 
 routeGroupBuilder.MapBookingEndPoints();
 
