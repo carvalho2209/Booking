@@ -1,4 +1,5 @@
-﻿using Booky.Application.Apartments.SearchApartments;
+﻿using Asp.Versioning;
+using Booky.Application.Apartments.SearchApartments;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,8 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace Booky.Api.Controllers.Apartments;
 
 [Authorize]
+[ApiVersion(ApiVersions.V1)]
 [ApiController]
-[Route("api/apartments")]
+[Route("api/v{version:apiVersion}/apartments")]
 public class ApartmentsController : ControllerBase
 {
     private readonly ISender _sender;
