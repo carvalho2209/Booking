@@ -7,7 +7,7 @@ public sealed class User : Entity
 {
     private readonly List<Role> _roles = new();
 
-    private User(){}
+    private User() { }
 
     private User(Guid id, FirstName firstName, LastName lastName, Email email)
         : base(id)

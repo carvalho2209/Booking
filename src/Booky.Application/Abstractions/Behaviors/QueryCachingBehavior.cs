@@ -1,4 +1,4 @@
-﻿using Booky.Application.Caching;
+﻿using Booky.Application.Abstractions.Caching;
 using Booky.Domain.Abstractions;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -7,7 +7,7 @@ namespace Booky.Application.Abstractions.Behaviors;
 
 internal sealed class QueryCachingBehavior<TRequest, TResponse> :
     IPipelineBehavior<TRequest, TResponse>
-    where TRequest : ICacheQuery
+    where TRequest : ICachedQuery
     where TResponse : Result
 {
     private readonly ICacheService _cacheService;
@@ -27,7 +27,7 @@ internal sealed class QueryCachingBehavior<TRequest, TResponse> :
         CancellationToken cancellationToken)
     {
         TResponse? cachedResult = await _cacheService.GetAsync<TResponse>(
-            request.CacheKey, 
+            request.CacheKey,
             cancellationToken);
 
         string name = typeof(TRequest).Name;

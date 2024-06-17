@@ -24,17 +24,23 @@ internal sealed class BookingReservedDomainEventHandler : INotificationHandler<B
 
     public async Task Handle(BookingReservedDomainEvent notification, CancellationToken cancellationToken)
     {
-        var booking = await _bookingRepository.GetByIdAsync(notification.BookingId, cancellationToken);
+        Booking? booking = await _bookingRepository.GetByIdAsync(notification.BookingId, cancellationToken);
 
-        if (booking is null) return;
+        if (booking is null)
+        {
+            return;
+        }
 
-        var user = await _userRepository.GetByIdAsync(booking.UserId, cancellationToken);
+        User? user = await _userRepository.GetByIdAsync(booking.UserId, cancellationToken);
 
-        if (user is null) return;
+        if (user is null)
+        {
+            return;
+        }
 
         await _emailService.SendAsync(
             user.Email,
             "Booking reserved!",
-            "You have qo minutes to confirm this booking");
+            "You have 10 minutes to confirm this booking");
     }
 }

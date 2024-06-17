@@ -1,7 +1,7 @@
 ﻿namespace Booky.Api.Controllers.Users;
 
 public record RegisterUserRequest(
-    string Email, 
+    string Email,
     string FirstName,
     string LastName,
     string Password);

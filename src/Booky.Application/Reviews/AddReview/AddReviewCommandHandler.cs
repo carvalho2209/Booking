@@ -14,9 +14,9 @@ internal sealed class AddReviewCommandHandler : ICommandHandler<AddReviewCommand
     private readonly IDateTimeProvider _dateTimeProvider;
 
     public AddReviewCommandHandler(
-        IBookingRepository bookingRepository, 
-        IReviewRepository reviewRepository, 
-        IUnitOfWork unitOfWork, 
+        IBookingRepository bookingRepository,
+        IReviewRepository reviewRepository,
+        IUnitOfWork unitOfWork,
         IDateTimeProvider dateTimeProvider)
     {
         _bookingRepository = bookingRepository;

@@ -2,12 +2,14 @@
 
 namespace Booky.Application.Bookings.ReserveBooking;
 
-public class ReserveBookingCommandValidator : AbstractValidator<ReserveBookingCommand>
+internal class ReserveBookingCommandValidator : AbstractValidator<ReserveBookingCommand>
 {
     public ReserveBookingCommandValidator()
     {
-        RuleFor(x => x.UserId).NotEmpty();
-        RuleFor(x => x.ApartmentId).NotEmpty();
-        RuleFor(x => x.StartDate).LessThan(x => x.EndDate);
+        RuleFor(c => c.UserId).NotEmpty();
+
+        RuleFor(c => c.ApartmentId).NotEmpty();
+
+        RuleFor(c => c.StartDate).LessThan(c => c.EndDate);
     }
 }

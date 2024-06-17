@@ -1,7 +1,7 @@
-﻿using System.Buffers;
-using System.Text.Json;
-using Booky.Application.Caching;
+﻿using Booky.Application.Abstractions.Caching;
 using Microsoft.Extensions.Caching.Distributed;
+using System.Buffers;
+using System.Text.Json;
 
 namespace Booky.Infrastructure.Caching;
 
@@ -30,9 +30,7 @@ internal sealed class CacheService : ICacheService
     }
 
     public Task RemoveAsync(string key, CancellationToken cancellationToken = default)
-    {
-        return _cache.RemoveAsync(key, cancellationToken);
-    }
+        => _cache.RemoveAsync(key, cancellationToken);
 
     private static byte[] Serialize<T>(T? value)
     {

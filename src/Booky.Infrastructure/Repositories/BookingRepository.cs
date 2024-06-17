@@ -20,7 +20,7 @@ internal sealed class BookingRepository : Repository<Booking>, IBookingRepositor
     ];
 
     public async Task<bool> IsOverlappingAsync(
-        Apartment apartment, 
+        Apartment apartment,
         DateRange duration,
         CancellationToken cancellationToken = default)
     {

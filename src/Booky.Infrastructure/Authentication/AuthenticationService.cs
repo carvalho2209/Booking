@@ -1,7 +1,7 @@
 ﻿using Booky.Application.Abstractions.Authentication;
 using Booky.Domain.Users;
-using System.Net.Http.Json;
 using Booky.Infrastructure.Authentication.Models;
+using System.Net.Http.Json;
 
 namespace Booky.Infrastructure.Authentication;
 

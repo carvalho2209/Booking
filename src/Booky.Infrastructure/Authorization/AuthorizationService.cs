@@ -1,4 +1,4 @@
-﻿using Booky.Application.Caching;
+﻿using Booky.Application.Abstractions.Caching;
 using Booky.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 

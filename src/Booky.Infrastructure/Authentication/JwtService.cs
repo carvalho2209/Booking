@@ -1,8 +1,8 @@
-﻿using System.Net.Http.Json;
-using Booky.Application.Abstractions.Authentication;
+﻿using Booky.Application.Abstractions.Authentication;
 using Booky.Domain.Abstractions;
 using Booky.Infrastructure.Authentication.Models;
 using Microsoft.Extensions.Options;
+using System.Net.Http.Json;
 
 namespace Booky.Infrastructure.Authentication;
 

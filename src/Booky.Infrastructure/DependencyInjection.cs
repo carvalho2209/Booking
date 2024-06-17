@@ -1,9 +1,9 @@
 ﻿using Asp.Versioning;
 using Booky.Application.Abstractions.Authentication;
+using Booky.Application.Abstractions.Caching;
 using Booky.Application.Abstractions.Clock;
 using Booky.Application.Abstractions.Data;
 using Booky.Application.Abstractions.Email;
-using Booky.Application.Caching;
 using Booky.Domain.Abstractions;
 using Booky.Domain.Apartments;
 using Booky.Domain.Bookings;

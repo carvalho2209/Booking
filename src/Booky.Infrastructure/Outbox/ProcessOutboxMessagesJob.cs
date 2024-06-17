@@ -1,5 +1,4 @@
-﻿using System.Data;
-using Booky.Application.Abstractions.Clock;
+﻿using Booky.Application.Abstractions.Clock;
 using Booky.Application.Abstractions.Data;
 using Booky.Domain.Abstractions;
 using Dapper;
@@ -8,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Quartz;
+using System.Data;
 
 namespace Booky.Infrastructure.Outbox;
 

@@ -1,8 +1,8 @@
-﻿using System.Security.Claims;
-using Booky.Infrastructure.Authentication;
+﻿using Booky.Infrastructure.Authentication;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.JsonWebTokens;
+using System.Security.Claims;
 
 namespace Booky.Infrastructure.Authorization;
 

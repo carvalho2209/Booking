@@ -1,6 +1,6 @@
-﻿using System.Data;
-using Booky.Application.Abstractions.Data;
+﻿using Booky.Application.Abstractions.Data;
 using Npgsql;
+using System.Data;
 
 namespace Booky.Infrastructure.Data;
 

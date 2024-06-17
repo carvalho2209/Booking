@@ -1,4 +1,4 @@
-﻿namespace Booky.Application.Caching;
+﻿namespace Booky.Application.Abstractions.Caching;
 
 public interface ICacheService
 {
